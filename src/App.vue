@@ -8,12 +8,15 @@
           class="input"
           type="text"
         />
-        <button class="add-todo-btn" @click="addTodo">
+        <button class="add-todo-btn" v-on:keyup.enter="addTodo" @click="addTodo">
           <i class="fas fa-plus"></i>
         </button>
       </div>
-      <ul class="todo-list" v-for="todo in todos" :key="todo.id">
-        <li class="todo-item"><div class="delete-task-btn"  @todo-done-btn="deleteTodo(todo)">🗸</div>{{ todo.body }}</li>
+      <ul class="todo-list" v-for="(todo, index) in todos" :key="todo.id">
+        <li class="todo-item">
+          <div class="delete-task-btn" @click="deleteTodo(index)">🗸</div>
+          {{ todo.body }}
+        </li>
       </ul>
     </div>
   </div>
@@ -26,7 +29,10 @@ export default {
         todos: [
             {id: 1, body: "I will"},
             {id: 2, body: "I will do"},
-            {id: 3, body: "I will nothing"}
+            {id: 3, body: "I will nothing"},
+            {id: 4, body: "I will"},
+            {id: 5, body: "I will do"},
+            {id: 6, body: "I will nothing"}
         ],
 
         body: ''
@@ -37,8 +43,8 @@ export default {
           this.body = event.target.value;
       },
 
-      deleteTodo(todo) {
-          this.todos.slice(todo, 1)
+      deleteTodo(index) {
+          this.todos.splice(index, 1)
       },
 
       addTodo() {
@@ -85,7 +91,7 @@ html {
 }
 
 .input {
-  width: 600px;
+  width: 800px;
   height: 50px;
   border: 2px solid #000000;
   font-size: 30px;
@@ -103,6 +109,10 @@ html {
   align-items: center;
   background-color: #000000;
   color: #fff;
+}
+
+.add-todo-btn:hover {
+  cursor: pointer;
 }
 
 .todo-list {
@@ -123,5 +133,8 @@ html {
   font-size: 30px;
 }
 
+.delete-task-btn:hover {
+    cursor: pointer;
+  }
 </style>
 
